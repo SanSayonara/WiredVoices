@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ioredis": "^5.0.4",
+    "lodash": "^4.17.21",
+    "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js/archive/refs/tags/v20.8.0.tar.gz"
+  }
+}
