@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wired Voices</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wired Voices</title>
 </head>
+
 <body>
-    <header>
-        press t to send a message.
-    </header>
-    <main>
-        <div>test message</div>
-        <div>test message2</div>
-        <div>test message3</div>
-        <div>test message4</div>
-        <div>test message5</div>
-    </main>
+  <header id="instructions">press t to write a message.</header>
+  <main>
+    <div>test message</div>
+    <div>test message2</div>
+    <div>test message3</div>
+    <div>test message4</div>
+    <div>test message5</div>
+  </main>
+  <div class="messageFormContainer">
+    <form id="messageForm">
+      <span for="messageInput">
+        <p>what is in your mind?</p>
+      </span>
+      <textarea maxlength="140" id="messageInput" spellcheck="false"></textarea>
+      <input type="submit" value="throw it out"></input>
+      <p class="messageFormTip">press esc to exit</p>
+    </form>
+  </div>
 </body>
+
 </html>
