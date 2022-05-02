@@ -2,7 +2,7 @@ $submit-border-color-full: rgba(118, 118, 118, 1);
 $submit-border-color-with-opacity: rgba(118, 118, 118, 0.8);
 
 .messageFormContainer {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -15,6 +15,10 @@ $submit-border-color-with-opacity: rgba(118, 118, 118, 0.8);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.showMessageForm {
+    display: flex;
 }
 
 #messageForm {
