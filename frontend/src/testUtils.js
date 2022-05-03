@@ -9,7 +9,7 @@ const randomMessageGenerator = () => {
 }
 
 window.startRandomMessageGenerator = (miliseconds = 10) => {
-    setInterval(randomMessageGenerator, miliseconds);
+    intervalRef = setInterval(randomMessageGenerator, miliseconds);
 }
 
 window.stopRandomMessageGenerator = () => {
