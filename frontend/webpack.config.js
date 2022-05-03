@@ -2,8 +2,14 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+let entry = ['./src/index.js'];
+
+if (process.env.NODE_ENV === 'development') {
+  entry.push('./src/testUtils.js');
+}
+
 const config = {
-  entry: './src/index.js',
+  entry,
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'wiredVoices.js'
