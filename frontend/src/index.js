@@ -1,4 +1,4 @@
-import { generateRandomFontSize, getRandomCoordinates } from './utils';
+import { generateRandomFontSize, getRandomCoordinates, getTimestamp } from './utils';
 import { viewportHeight, viewportWidth, body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput } from './selectors';
 
 import './styles/animations.scss';
@@ -46,7 +46,25 @@ function messageHandler(text) {
 
   newElement.style.left = `${x}px`;
   newElement.style.top = `${y}px`;
+  newElement.timestamp = getTimestamp();
+
+  messagesToDeleteList.push(newElement);
 
 }
+
+const garbageCollector = () => {
+  const now = getTimestamp();
+
+  messagesToDeleteList.forEach(message => {
+    if (now - message.timestamp > 3) {
+      const index = messagesToDeleteList.indexOf(message);
+  
+      message.remove();
+      messagesToDeleteList.splice(index, 1);
+    }
+  });
+}
+
+setInterval(garbageCollector, 1000);
 
 window.messageHandler = messageHandler;

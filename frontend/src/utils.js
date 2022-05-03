@@ -14,3 +14,7 @@ export const getRandomCoordinates = (element) => {
 
   return { x, y };
 }
+
+export const getTimestamp = () => {
+  return Math.round((new Date()).getTime() / 1000);
+}
