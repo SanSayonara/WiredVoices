@@ -52,10 +52,12 @@ p {
 }
 
 .message {
+    opacity: 0;
     position: absolute;
     max-width: 45vw;
     left: -1000px;
     top: -1000px;
     word-break: break-all;
+    animation: textShadow 1.6s infinite, linear instructionsAnim 1s 1;
 }
 
