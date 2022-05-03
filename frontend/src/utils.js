@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { viewportWidth, viewportHeight } from "./selectors"
 
 export const generateRandomFontSize = () => {
-  const minRange = viewportWidth * 0.03;
+  const minRange = Math.max(viewportWidth * 0.01, 16);
   const maxRange = viewportWidth * 0.04;
 
   return _.random(minRange, maxRange);
