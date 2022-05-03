@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
     color: #00FF00;
-    background-color: #000000;
     font-family: sans-serif;
     font-size: 16px;
 }
@@ -35,6 +34,10 @@ body::after {
     animation: flicker 0.15s infinite;
 }
 
+body {
+    background-color: #000000;
+}
+
 p {
     animation: textShadow 1.6s infinite;
 }
@@ -46,5 +49,13 @@ p {
     left: 50%;
     transform: translate(-50%, -50%);
     animation: textShadow 1.6s infinite, instructionsAnim 2s 3;
+}
+
+.message {
+    position: absolute;
+    max-width: 45vw;
+    left: -1000px;
+    top: -1000px;
+    word-break: break-all;
 }
 
