@@ -1,6 +1,3 @@
-export const viewportHeight = window.innerHeight;
-export const viewportWidth = window.innerWidth;
-
 export const body = document.body;
 export const screen = document.querySelector('#screen');
 export const instructionsDOM = document.querySelector('#instructions');

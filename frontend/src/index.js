@@ -1,5 +1,5 @@
 import { generateRandomFontSize, getRandomCoordinates, getTimestamp } from './utils';
-import { viewportHeight, viewportWidth, body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput } from './selectors';
+import { body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput } from './selectors';
 
 import './styles/animations.scss';
 import './styles/main.scss';
@@ -9,7 +9,7 @@ let shortcutsEnabled = true;
 
 let messagesToDeleteList = [];
 
-const instructionsFontSize = viewportWidth / instructionsDOM.innerHTML.length;
+const instructionsFontSize = window.innerWidth / instructionsDOM.innerHTML.length;
 
 instructionsDOM.style.fontSize = `${instructionsFontSize}px`;
 
