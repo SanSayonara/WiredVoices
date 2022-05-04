@@ -81,7 +81,7 @@ const showLain = () => {
 
 lainElement.addEventListener( "animationend",  () => lainElement.classList.remove('showLainAnimation'));
 
-setInterval(showLain, 5000);
+setInterval(showLain, 5 * 60 * 1000);
 setInterval(garbageCollector, 1000);
 
 window.messageHandler = messageHandler;
