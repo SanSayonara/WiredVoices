@@ -12,6 +12,7 @@
   "dependencies": {
     "ioredis": "^5.0.4",
     "lodash": "^4.17.21",
+    "msgpackr": "^1.5.7",
     "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js/archive/refs/tags/v20.8.0.tar.gz"
   }
 }
