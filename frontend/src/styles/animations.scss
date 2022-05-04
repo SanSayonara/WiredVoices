@@ -27,6 +27,20 @@
     }
 }
 
+@keyframes lainAnim {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes flicker {
     0% {
         opacity: 0.27861;

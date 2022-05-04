@@ -61,3 +61,14 @@ p {
     animation: textShadow 1.6s infinite, linear instructionsAnim 1s 1;
 }
 
+#lain {
+    position: absolute;
+    max-width: 20vw;
+    left: -1000px;
+    top: -1000px;
+    opacity: 0;
+}
+
+.showLainAnimation {
+    animation: linear lainAnim 4s 1;
+}

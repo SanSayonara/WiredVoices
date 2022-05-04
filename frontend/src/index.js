@@ -1,5 +1,7 @@
 import { generateRandomFontSize, getRandomCoordinates, getTimestamp } from './utils';
-import { body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput } from './selectors';
+import { body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput, lainElement } from './selectors';
+
+import lainImages from './lainImages.json';
 
 import './styles/animations.scss';
 import './styles/main.scss';
@@ -65,6 +67,21 @@ const garbageCollector = () => {
   });
 }
 
+const showLain = () => {
+  const randomImage = _.sample(lainImages);
+
+  lainElement.src = randomImage;
+
+  const { x, y } = getRandomCoordinates(lainElement);
+
+  lainElement.style.left = `${x}px`;
+  lainElement.style.top = `${y}px`;
+  lainElement.classList.add('showLainAnimation');
+}
+
+lainElement.addEventListener( "animationend",  () => lainElement.classList.remove('showLainAnimation'));
+
+setInterval(showLain, 5000);
 setInterval(garbageCollector, 1000);
 
 window.messageHandler = messageHandler;
