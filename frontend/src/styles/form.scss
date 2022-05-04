@@ -3,6 +3,7 @@ $submit-border-color-with-opacity: rgba(118, 118, 118, 0.8);
 
 .messageFormContainer {
     display: none;
+    background-color: #000;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -29,6 +30,7 @@ $submit-border-color-with-opacity: rgba(118, 118, 118, 0.8);
 #messageInput {
     width: 100%;
     height: 100px;
+    background-color: #080808;
     padding: 7px;
     border-radius: 2px;
     border: 1px solid rgba(255, 255, 255, 0.59);
@@ -44,6 +46,7 @@ $submit-border-color-with-opacity: rgba(118, 118, 118, 0.8);
 
 #messageForm input[type=submit] {
     display: block;
+    background-color: #000;
     width: 100%;
     padding: 4px;
     border-radius: 2px;
