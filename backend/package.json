@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "i": "^0.3.7",
     "ioredis": "^5.0.4",
     "lodash": "^4.17.21",
     "msgpackr": "^1.5.7",
