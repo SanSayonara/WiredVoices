@@ -1,5 +1,5 @@
-import _ from "lodash";
-import { LoremIpsum } from "lorem-ipsum";
+import _ from 'lodash';
+import { LoremIpsum } from 'lorem-ipsum';
 
 const lorem = new LoremIpsum();
 let intervalRef = null;
