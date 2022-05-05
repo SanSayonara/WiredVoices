@@ -12,6 +12,7 @@
   "dependencies": {
     "ioredis": "^5.0.4",
     "lodash": "^4.17.21",
+    "log4js": "^6.4.6",
     "msgpackr": "^1.5.7",
     "npm": "^8.9.0",
     "sanitize-html": "^2.7.0",
