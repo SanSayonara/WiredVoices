@@ -1,5 +1,9 @@
+/* eslint-disable no-return-assign */
+import _ from 'lodash';
 import { generateRandomFontSize, getRandomCoordinates, getTimestamp } from './utils';
-import { body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput, lainElement } from './selectors';
+import {
+  body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput, lainElement,
+} from './selectors';
 
 import lainImages from './lainImages.json';
 
@@ -9,7 +13,7 @@ import './styles/form.scss';
 
 let shortcutsEnabled = true;
 
-let messagesToDeleteList = [];
+const messagesToDeleteList = [];
 
 const instructionsFontSize = window.innerWidth / instructionsDOM.innerHTML.length;
 
@@ -25,13 +29,15 @@ body.onkeyup = (event) => {
   if (key.toLowerCase() === 't') {
     messageFormContainer.classList.toggle('showMessageForm');
   }
-}
+};
 
-messageFormInput.onfocus = (event) => shortcutsEnabled = false;
-messageFormInput.onblur = (event) => shortcutsEnabled = true;
+messageFormInput.onfocus = () => shortcutsEnabled = false;
+messageFormInput.onblur = () => shortcutsEnabled = true;
 
-messageForm.onsubmit = event => {
-  event.preventDefault(), console.log(event)
+messageForm.onsubmit = (event) => {
+  event.preventDefault();
+
+  console.log(event);
 };
 
 function messageHandler(text) {
@@ -51,21 +57,20 @@ function messageHandler(text) {
   newElement.timestamp = getTimestamp();
 
   messagesToDeleteList.push(newElement);
-
 }
 
 const garbageCollector = () => {
   const now = getTimestamp();
 
-  messagesToDeleteList.forEach(message => {
+  messagesToDeleteList.forEach((message) => {
     if (now - message.timestamp > 3) {
       const index = messagesToDeleteList.indexOf(message);
-  
+
       message.remove();
       messagesToDeleteList.splice(index, 1);
     }
   });
-}
+};
 
 const showLain = () => {
   const randomImage = _.sample(lainImages);
@@ -77,9 +82,9 @@ const showLain = () => {
   lainElement.style.left = `${x}px`;
   lainElement.style.top = `${y}px`;
   lainElement.classList.add('showLainAnimation');
-}
+};
 
-lainElement.addEventListener( "animationend",  () => lainElement.classList.remove('showLainAnimation'));
+lainElement.addEventListener('animationend', () => lainElement.classList.remove('showLainAnimation'));
 
 setInterval(showLain, 5 * 60 * 1000);
 setInterval(garbageCollector, 5000);
