@@ -53,8 +53,6 @@ function createMessageNode() {
   const messageNode = document.createElement('div');
   messageNode.classList.add('message');
   messageNode.addEventListener('animationend', () => {
-    messageNode.style.left = null;
-    messageNode.style.top = null;
     messageNode.classList.remove('showMessageAnimation');
     messageNode.remove();
 
