@@ -92,11 +92,13 @@ function connectToServer() {
   server.binaryType = 'arraybuffer';
 
   server.onmessage = ({ data }) => {
+    if (document.visibilityState !== 'visible') {
+      return;
+    }
+
     const message = decode(new Uint8Array(data));
 
-    if (document.visibilityState === 'visible') {
-      messageCreator(message.content);
-    }
+    messageCreator(message.content);
   };
 }
 
