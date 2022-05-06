@@ -15,7 +15,8 @@ import './styles/form.scss';
 let server = null;
 let shortcutsEnabled = true;
 
-const messagesToDeleteList = [];
+const messagesNodes = [];
+const messagesNodesToRecycle = [];
 
 const instructionsFontSize = window.innerWidth / instructionsDOM.innerHTML.length;
 
@@ -49,33 +50,44 @@ messageForm.onsubmit = (event) => {
 };
 
 function messageCreator(text) {
-  const newElement = document.createElement('div');
+  let messageNode = null;
   const fontSize = generateRandomFontSize();
 
-  newElement.innerHTML = text;
-  newElement.classList.add('message');
-  newElement.style.fontSize = `${fontSize}px`;
+  if (messagesNodesToRecycle.length) {
+    messageNode = messagesNodesToRecycle.pop();
+  } else {
+    messageNode = document.createElement('div');
+    messageNode.classList.add('message');
+    messagesNodes.push(messageNode);
+  }
 
-  screen.appendChild(newElement);
+  messageNode.innerHTML = text;
+  messageNode.classList.add('message');
+  messageNode.style.fontSize = `${fontSize}px`;
 
-  const { x, y } = getRandomCoordinates(newElement);
+  screen.appendChild(messageNode);
 
-  newElement.style.left = `${x}px`;
-  newElement.style.top = `${y}px`;
-  newElement.timestamp = getTimestamp();
+  const { x, y } = getRandomCoordinates(messageNode);
 
-  messagesToDeleteList.push(newElement);
+  messageNode.style.left = `${x}px`;
+  messageNode.style.top = `${y}px`;
+  messageNode.classList.add('showMessageAnimation');
+  messageNode.timestamp = getTimestamp();
 }
 
 const garbageCollector = () => {
   const now = getTimestamp();
 
-  messagesToDeleteList.forEach((message) => {
-    if (now - message.timestamp > 3) {
-      const index = messagesToDeleteList.indexOf(message);
+  messagesNodes.forEach((messageNode) => {
+    if (now - messageNode.timestamp > 3) {
+      // eslint-disable-next-line no-param-reassign
+      messageNode.style.left = null;
+      // eslint-disable-next-line no-param-reassign
+      messageNode.style.top = null;
+      messageNode.classList.remove('showMessageAnimation');
+      messageNode.remove();
 
-      message.remove();
-      messagesToDeleteList.splice(index, 1);
+      messagesNodesToRecycle.push(messageNode);
     }
   });
 };
@@ -108,7 +120,7 @@ const showLain = () => {
 lainElement.addEventListener('animationend', () => lainElement.classList.remove('showLainAnimation'));
 
 setInterval(showLain, 5 * 60 * 1000);
-setInterval(garbageCollector, 5000);
+setInterval(garbageCollector, 500);
 
 connectToServer();
 

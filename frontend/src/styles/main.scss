@@ -58,6 +58,9 @@ p {
     left: -1000px;
     top: -1000px;
     word-break: break-all;
+}
+
+.showMessageAnimation {
     animation: textShadow 1.6s infinite, linear instructionsAnim 1s 1;
 }
 
