@@ -49,6 +49,22 @@ messageForm.onsubmit = (event) => {
   }
 };
 
+function createMessageNode() {
+  const messageNode = document.createElement('div');
+  messageNode.classList.add('message');
+  messageNode.addEventListener('animationend', () => {
+    messageNode.style.left = null;
+    messageNode.style.top = null;
+    messageNode.classList.remove('showMessageAnimation');
+    messageNode.remove();
+
+    messagesNodesToRecycle.push(messageNode);
+  });
+  messagesNodes.push(messageNode);
+
+  return messageNode;
+}
+
 function messageCreator(text) {
   let messageNode = null;
   const fontSize = generateRandomFontSize();
@@ -56,9 +72,7 @@ function messageCreator(text) {
   if (messagesNodesToRecycle.length) {
     messageNode = messagesNodesToRecycle.pop();
   } else {
-    messageNode = document.createElement('div');
-    messageNode.classList.add('message');
-    messagesNodes.push(messageNode);
+    messageNode = createMessageNode();
   }
 
   messageNode.innerHTML = text;
@@ -120,7 +134,7 @@ const showLain = () => {
 lainElement.addEventListener('animationend', () => lainElement.classList.remove('showLainAnimation'));
 
 setInterval(showLain, 5 * 60 * 1000);
-setInterval(garbageCollector, 500);
+//setInterval(garbageCollector, 500);
 
 connectToServer();
 
