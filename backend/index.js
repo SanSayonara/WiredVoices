@@ -3,6 +3,8 @@ const log4js = require('log4js');
 const msgpackr = require('msgpackr');
 const sanitizeHtml = require('sanitize-html');
 
+const { getTimestamp } = require('./utils');
+
 const config = require('./config.json');
 
 log4js.configure({
@@ -26,12 +28,48 @@ server.ws('/*', {
   maxBackpressure: config.maxMessagesOnBackpressure * config.maxPayloadSize,
   maxPayloadLength: config.maxPayloadSize,
   sendPingsAutomatically: true,
+  upgrade: async (res, req, context) => {
+    const url = req.getUrl();
+    const secWebSocketKey = req.getHeader('sec-websocket-key');
+    const secWebSocketProtocol = req.getHeader('sec-websocket-protocol');
+    const secWebSocketExtensions = req.getHeader('sec-websocket-extensions');
+    const upgradeAborted = { aborted: false };
+
+    res.onAborted(() => {
+      upgradeAborted.aborted = true;
+    });
+
+    logger.info(`The IP ${textDecoder.decode(res.getRemoteAddressAsText())} is trying to establish a WS connection.`);
+
+    if (upgradeAborted.aborted) {
+      logger.info(`The IP ${textDecoder.decode(res.getRemoteAddressAsText())} disconnected before we could upgrade it.`);
+      return;
+    }
+
+    res.upgrade(
+      {
+        lastMessageTimestamp: 0,
+        url,
+      },
+      secWebSocketKey,
+      secWebSocketProtocol,
+      secWebSocketExtensions,
+      context,
+    );
+  },
   open: (ws) => {
     ws.subscribe('broadcast');
 
     logger.info(`New connection from ${textDecoder.decode(ws.getRemoteAddressAsText())}`);
   },
   message: (ws, message) => {
+    if (getTimestamp() - ws.lastMessageTimestamp < 2) {
+      return;
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    ws.lastMessageTimestamp = getTimestamp();
+
     const messageObj = msgpackr.decode(Buffer.from(message));
 
     if (!messageObj.content) {
