@@ -12,6 +12,7 @@ import './styles/animations.scss';
 import './styles/main.scss';
 import './styles/form.scss';
 
+let server = null;
 let shortcutsEnabled = true;
 
 const messagesToDeleteList = [];
@@ -38,7 +39,13 @@ messageFormInput.onblur = () => shortcutsEnabled = true;
 messageForm.onsubmit = (event) => {
   event.preventDefault();
 
-  console.log(event);
+  const message = messageFormInput.value;
+  messageFormInput.value = '';
+
+  if (server?.readyState) {
+    server.send(encode({ content: message }));
+    messageFormContainer.classList.remove('showMessageForm');
+  }
 };
 
 function messageCreator(text) {
@@ -74,7 +81,7 @@ const garbageCollector = () => {
 };
 
 function connectToServer() {
-  const server = new WebSocket('ws://localhost:9001');
+  server = new WebSocket('ws://localhost:9001');
   server.binaryType = 'arraybuffer';
 
   server.onmessage = ({ data }) => {
