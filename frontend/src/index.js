@@ -72,16 +72,18 @@ const garbageCollector = () => {
   });
 };
 
-const showLain = () => {
-  const randomImage = _.sample(lainImages);
-
-  lainElement.src = randomImage;
-
+lainElement.onload = () => {
   const { x, y } = getRandomCoordinates(lainElement);
 
   lainElement.style.left = `${x}px`;
   lainElement.style.top = `${y}px`;
   lainElement.classList.add('showLainAnimation');
+};
+
+const showLain = () => {
+  const randomImage = _.sample(lainImages);
+
+  lainElement.src = randomImage;
 };
 
 lainElement.addEventListener('animationend', () => lainElement.classList.remove('showLainAnimation'));
