@@ -94,7 +94,9 @@ function connectToServer() {
   server.onmessage = ({ data }) => {
     const message = decode(new Uint8Array(data));
 
-    messageCreator(message.content);
+    if (document.visibilityState === 'visible') {
+      messageCreator(message.content);
+    }
   };
 }
 
