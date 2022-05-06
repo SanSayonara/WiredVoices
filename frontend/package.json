@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "lorem-ipsum": "^2.0.4"
+    "lorem-ipsum": "^2.0.4",
+    "msgpackr": "^1.5.7"
   }
 }

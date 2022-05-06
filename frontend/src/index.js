@@ -1,5 +1,6 @@
 /* eslint-disable no-return-assign */
 import _ from 'lodash';
+import { encode, decode } from 'msgpackr';
 import { generateRandomFontSize, getRandomCoordinates, getTimestamp } from './utils';
 import {
   body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput, lainElement,
@@ -40,7 +41,7 @@ messageForm.onsubmit = (event) => {
   console.log(event);
 };
 
-function messageHandler(text) {
+function messageCreator(text) {
   const newElement = document.createElement('div');
   const fontSize = generateRandomFontSize();
 
@@ -72,6 +73,17 @@ const garbageCollector = () => {
   });
 };
 
+function connectToServer() {
+  const server = new WebSocket('ws://localhost:9001');
+  server.binaryType = 'arraybuffer';
+
+  server.onmessage = ({ data }) => {
+    const message = decode(new Uint8Array(data));
+
+    messageCreator(message.content);
+  };
+}
+
 lainElement.onload = () => {
   const { x, y } = getRandomCoordinates(lainElement);
 
@@ -91,4 +103,6 @@ lainElement.addEventListener('animationend', () => lainElement.classList.remove(
 setInterval(showLain, 5 * 60 * 1000);
 setInterval(garbageCollector, 5000);
 
-window.messageHandler = messageHandler;
+connectToServer();
+
+window.messageHandler = messageCreator;
