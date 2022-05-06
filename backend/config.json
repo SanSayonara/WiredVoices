@@ -5,7 +5,7 @@
         "port": 6379
     },
     "maxPayloadSize": 500,
-    "maxMessagesOnBackpressure": 100,
+    "maxMessagesOnBackpressure": 50,
     "idleTimeout": 300,
     "logLevel": "debug"
 }
