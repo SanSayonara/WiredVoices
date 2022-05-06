@@ -89,23 +89,6 @@ function messageCreator(text) {
   messageNode.timestamp = getTimestamp();
 }
 
-const garbageCollector = () => {
-  const now = getTimestamp();
-
-  messagesNodes.forEach((messageNode) => {
-    if (now - messageNode.timestamp > 3) {
-      // eslint-disable-next-line no-param-reassign
-      messageNode.style.left = null;
-      // eslint-disable-next-line no-param-reassign
-      messageNode.style.top = null;
-      messageNode.classList.remove('showMessageAnimation');
-      messageNode.remove();
-
-      messagesNodesToRecycle.push(messageNode);
-    }
-  });
-};
-
 function connectToServer() {
   server = new WebSocket('ws://localhost:9001');
   server.binaryType = 'arraybuffer';
@@ -134,7 +117,6 @@ const showLain = () => {
 lainElement.addEventListener('animationend', () => lainElement.classList.remove('showLainAnimation'));
 
 setInterval(showLain, 5 * 60 * 1000);
-//setInterval(garbageCollector, 500);
 
 connectToServer();
 
