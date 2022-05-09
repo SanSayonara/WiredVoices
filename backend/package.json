@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "ioredis": "^5.0.4",
+    "knex": "^2.0.0",
     "lodash": "^4.17.21",
     "log4js": "^6.4.6",
     "msgpackr": "^1.5.7",
