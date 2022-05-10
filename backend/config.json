@@ -1,8 +1,11 @@
 {
     "port": 9001,
     "redis": {
-        "host": "127.0.0.1",
-        "port": 6379
+        "connectionData": {
+            "host": "127.0.0.1",
+            "port": 6379
+        },
+        "prefix": "wiredvoices"
     },
     "maxPayloadSize": 500,
     "maxMessagesOnBackpressure": 50,
