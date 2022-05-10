@@ -78,7 +78,6 @@ function messageCreator(text) {
   }
 
   messageNode.innerHTML = text;
-  messageNode.classList.add('message');
   messageNode.style.fontSize = `${fontSize}px`;
 
   screen.appendChild(messageNode);
