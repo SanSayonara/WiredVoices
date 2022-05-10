@@ -104,6 +104,14 @@ function connectToServer() {
 
     messageCreator(message.content);
   };
+
+  server.onerror = () => {
+    setTimeout(connectToServer, 3000);
+  };
+
+  server.onclose = () => {
+    setTimeout(connectToServer, 5000);
+  };
 }
 
 const showLain = () => {
