@@ -78,7 +78,7 @@ class Server {
 
   /**
    * Called when a connection is established.
-   * @param {uWebSockets.WebSocket} ws - The WebSocket connection.
+   * @param {uWebSockets.WebSocket} ws - The WebSocket client connection object.
    */
   handleOpen(ws) {
     ws.subscribe('broadcast');
@@ -88,7 +88,7 @@ class Server {
 
   /**
    * Handles incoming messages from the client.
-   * @param {uWebSockets.WebSocket} ws - The WebSocket connection object.
+   * @param {uWebSockets.WebSocket} ws - The WebSocket client connection object.
    * @param {ArrayBuffer} message - The message received from the client.
    */
   handleClientMessage(ws, message) {
@@ -112,8 +112,6 @@ class Server {
     }
 
     this.logger.debug(`Received message from client: ${content}`);
-
-    // this.server.publish('broadcast', msgpackr.encode({ content }), true);
 
     this.redis.publish(`${this.config.redis.prefix}:broadcast`, msgpackr.encode({ type: 'clientMessage', content }));
   }
