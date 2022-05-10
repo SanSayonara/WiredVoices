@@ -32,6 +32,10 @@ body.onkeyup = (event) => {
   if (key.toLowerCase() === 't') {
     messageFormContainer.classList.toggle('showMessageForm');
   }
+
+  if (key === 'Escape') {
+    messageFormContainer.classList.remove('showMessageForm');
+  }
 };
 
 messageFormInput.onfocus = () => shortcutsEnabled = false;
