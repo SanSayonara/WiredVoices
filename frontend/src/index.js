@@ -6,7 +6,7 @@ import {
   body, screen, instructionsDOM, messageFormContainer, messageForm, messageFormInput, lainElement,
 } from './selectors';
 
-import lainImages from './lainImages.json';
+import config from '../config.json';
 
 import './styles/animations.scss';
 import './styles/main.scss';
@@ -92,7 +92,7 @@ function messageCreator(text) {
 }
 
 function connectToServer() {
-  server = new WebSocket('ws://localhost:9001');
+  server = new WebSocket(`ws://${config.serverURL}`);
   server.binaryType = 'arraybuffer';
 
   server.onmessage = ({ data }) => {
@@ -107,7 +107,7 @@ function connectToServer() {
 }
 
 const showLain = () => {
-  const randomImage = _.sample(lainImages);
+  const randomImage = _.sample(config.lainImages);
 
   if (lainElement.onload === null) {
     lainElement.onload = () => {
