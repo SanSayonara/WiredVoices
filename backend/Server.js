@@ -5,6 +5,7 @@ const log4js = require('log4js');
 const msgpackr = require('msgpackr');
 const sanitizeHtml = require('sanitize-html');
 
+const Data = require('./Data');
 const { getTimestamp } = require('./utils');
 
 const sanitizerConfig = {
@@ -25,6 +26,7 @@ class Server {
     });
 
     this.logger = log4js.getLogger();
+    this.data = new Data();
     this.redis = new Redis(this.config.redis.connectionData);
     this.subscribedRedis = new Redis(this.config.redis.connectionData);
     this.server = uWebSockets.App();
@@ -52,15 +54,16 @@ class Server {
     const secWebSocketProtocol = req.getHeader('sec-websocket-protocol');
     const secWebSocketExtensions = req.getHeader('sec-websocket-extensions');
     const upgradeAborted = { aborted: false };
+    const IP = textDecoder.decode(res.getRemoteAddressAsText());
 
     res.onAborted(() => {
       upgradeAborted.aborted = true;
     });
 
-    this.logger.info(`The IP ${textDecoder.decode(res.getRemoteAddressAsText())} is trying to establish a WS connection.`);
+    this.logger.info(`The IP ${IP} is trying to establish a WS connection.`);
 
     if (upgradeAborted.aborted) {
-      this.logger.info(`The IP ${textDecoder.decode(res.getRemoteAddressAsText())} disconnected before we could upgrade it.`);
+      this.logger.info(`The IP ${IP} disconnected before we could upgrade it.`);
       return;
     }
 
@@ -68,6 +71,7 @@ class Server {
       {
         lastMessageTimestamp: 0,
         url,
+        IP,
       },
       secWebSocketKey,
       secWebSocketProtocol,
@@ -83,7 +87,7 @@ class Server {
   handleOpen(ws) {
     ws.subscribe('broadcast');
 
-    this.logger.info(`New connection from ${textDecoder.decode(ws.getRemoteAddressAsText())}`);
+    this.logger.info(`New connection from ${ws.IP}`);
   }
 
   /**
@@ -112,6 +116,8 @@ class Server {
     }
 
     this.logger.debug(`Received message from client: ${content}`);
+
+    this.data.logMessage(ws.IP, content, getTimestamp());
 
     this.redis.publish(`${this.config.redis.prefix}:broadcast`, msgpackr.encode({ type: 'clientMessage', content }));
   }
