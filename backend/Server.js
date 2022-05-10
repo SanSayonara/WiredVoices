@@ -44,7 +44,7 @@ class Server {
    * It upgrades the connection to a WebSocket connection
    * @param {uWebSockets.HttpResponse} res - The response object.
    * @param {uWebSockets.HttpRequest} req - The request object.
-   * @param {uWebSockets.us_socket_context_t} context - This is the context that was passed to the server when it was created.
+   * @param {uWebSockets.us_socket_context_t} context - Native type representing a raw uSockets struct us_socket_context_t.
    */
   handleUpgrade(res, req, context) {
     const url = req.getUrl();
