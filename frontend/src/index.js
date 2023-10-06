@@ -135,4 +135,4 @@ setInterval(showLain, 5 * 60 * 1000);
 
 connectToServer();
 
-window.messageHandler = messageCreator;
+window.messageCreator = messageCreator;
