@@ -20,7 +20,6 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "^5.5.0",
-    "node-sass": "^7.0.1",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.0",
@@ -30,6 +29,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "lorem-ipsum": "^2.0.4",
-    "msgpackr": "^1.5.7"
+    "msgpackr": "^1.5.7",
+    "sass": "^1.69.0"
   }
 }
