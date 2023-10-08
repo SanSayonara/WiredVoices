@@ -105,11 +105,13 @@ function connectToServer() {
   };
 
   server.onerror = () => {
-    setTimeout(connectToServer, 3000);
+    console.log('WS connection got an error.');
   };
 
   server.onclose = () => {
-    setTimeout(connectToServer, 5000);
+    console.log('WS connection has been closed.');
+
+    setTimeout(connectToServer, 10000);
   };
 }
 
