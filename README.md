@@ -10,7 +10,7 @@ Wired Voices is an anonymous real-time ephemeral textboard inspired by the now-d
 
 ## Requirements
 
-node >= 16
+node >= 18
 
 redis >= 2.8.0
 
